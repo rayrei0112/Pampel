@@ -2931,3 +2931,25 @@ function Library:CreateWindow(...)
 
     return Window;
 end;
+
+
+local HttpService = game:GetService("HttpService")
+--print(HttpService:JSONEncode(_G.Save))
+
+function Savefiles()
+    if isfile("Zeta.JSON") == true then
+        writefile("Zeta.JSON", tostring(HttpService:JSONEncode(_G.Save)))
+    end
+end
+
+function Loadflies()
+    if isfile("Zeta.JSON") == false then
+        writefile("Zeta.JSON", tostring(HttpService:JSONEncode(_G.Save)))
+    else
+        local contents = readfile("Zeta.JSON")
+        for i,v in pairs(HttpService:JSONDecode(contents)) do
+            _G.Save[i] = v
+        end
+    end
+end
+Loadflies()
